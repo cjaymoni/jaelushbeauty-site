@@ -174,7 +174,7 @@ svg {
     color: var(--cocoa);
   }
   .site-header nav a:hover,
-  .footer-links a:hover {
+  .footer-col a:hover {
     color: var(--cocoa);
   }
 }
@@ -276,30 +276,102 @@ svg {
 }
 
 /* Footer */
+/* Footer */
 .site-footer {
+  margin-top: 112px;
+  padding: 80px 0 32px;
+  background: var(--shea-deep);
   border-top: 1px solid var(--line);
-  padding: 48px 0;
-  margin-top: 96px;
 }
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: flex-end;
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 48px 40px;
 }
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
+.footer-brand {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  align-content: start;
+  max-width: 22em;
 }
-.footer-links a {
+.footer-brand .wordmark {
+  font-size: 1.75rem;
+}
+.footer-col {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.footer-heading {
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 4px;
+}
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+/* 44px rows keep links easy to tap without looking spaced out. */
+.footer-col a {
   color: var(--cocoa-soft);
   text-decoration: none;
   font-weight: 500;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+}
+.footer-col p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.footer-col .footer-text-link {
+  color: var(--clay);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+  color: var(--cocoa-soft);
+}
+
+@media (max-width: 960px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer {
+    margin-top: 80px;
+    padding-top: 56px;
+  }
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 24px;
+  }
+  .footer-grid > :last-child {
+    grid-column: 1 / -1;
+  }
+  .footer-bottom {
+    margin-top: 48px;
+  }
 }
 
 @media (max-width: 760px) {

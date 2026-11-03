@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import MobileMenu, { type NavLink } from "@/components/MobileMenu";
+import SiteFooter from "@/components/SiteFooter";
 import {
   BRAND_COLOURS,
   INSTAGRAM_URL,
@@ -62,12 +63,6 @@ export const viewport: Viewport = {
   themeColor: BRAND_COLOURS.background,
 };
 
-// Cached so the year is fixed at build time rather than read on every render.
-async function Year() {
-  "use cache";
-  return new Date().getFullYear();
-}
-
 const navLinks: NavLink[] = [
   { href: "/#bars", label: "Shop bars" },
   { href: "/about", label: "Our story" },
@@ -108,29 +103,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         </header>
         <main id="main">{children}</main>
-        <footer className="site-footer">
-          <div className="container footer-inner">
-            <div>
-              <p className="wordmark">
-                Jaelush<span>Beauty</span>
-              </p>
-              <p className="muted">Handcrafted in Ghana, in small batches.</p>
-            </div>
-            <nav aria-label="Footer" className="footer-links">
-              {navLinks.map((l) => (
-                <Link key={l.href} href={l.href}>
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-            <p className="muted">
-              Follow us <a href={INSTAGRAM_URL}>@jaelushbeauty</a>
-            </p>
-            <p className="muted">
-              © <Year /> Jaelush Beauty
-            </p>
-          </div>
-        </footer>
+        <SiteFooter links={navLinks} />
       </body>
     </html>
   );
