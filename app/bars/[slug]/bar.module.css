@@ -1,0 +1,159 @@
+.hero {
+  background: var(--tint);
+  padding: 56px 0 72px;
+}
+.heroInner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+}
+.art {
+  filter: drop-shadow(0 24px 32px rgb(59 36 24 / 0.18));
+}
+.back {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--cocoa-soft);
+}
+@media (hover: hover) {
+  .back:hover {
+    color: var(--cocoa);
+  }
+}
+.variant {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--deep);
+}
+.hero h1 {
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  margin: 8px 0 12px;
+}
+.tagline {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: 1.375rem;
+  color: var(--deep);
+  margin-bottom: 20px;
+}
+.description {
+  color: var(--cocoa-soft);
+  margin-bottom: 32px;
+  max-width: 36em;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  padding-top: 80px;
+  align-items: start;
+}
+.details h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+.benefits {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.benefits > div {
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+}
+.benefits dt {
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+}
+.benefits dd {
+  margin: 0;
+  color: var(--cocoa-soft);
+}
+.why {
+  background: var(--tint);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.why h2 {
+  font-size: 1.625rem;
+  margin-bottom: 12px;
+}
+
+.othersSection {
+  padding-top: 96px;
+}
+.othersSection h2 {
+  font-size: 1.75rem;
+  margin-bottom: 24px;
+}
+.others {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.other {
+  display: grid;
+  gap: 2px;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  transition:
+    transform var(--tilt-return) var(--tilt-return-ease),
+    background-color 150ms ease-out;
+}
+.other:global(.is-tilting) {
+  transition:
+    transform var(--tilt-follow) var(--tilt-follow-ease),
+    background-color 150ms ease-out;
+}
+.tilt {
+  height: 100%;
+}
+.other {
+  height: 100%;
+}
+@media (hover: hover) {
+  .other:hover {
+    background: var(--shea-deep);
+  }
+}
+.otherName {
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+  margin-top: 8px;
+}
+.otherVariant {
+  font-size: 0.875rem;
+}
+
+@media (max-width: 900px) {
+  .heroInner,
+  .details {
+    grid-template-columns: 1fr;
+  }
+  .art {
+    max-width: 380px;
+  }
+  .others {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .benefits > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

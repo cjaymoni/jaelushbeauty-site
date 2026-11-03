@@ -1,0 +1,127 @@
+.hero {
+  padding: 96px 0 72px;
+  background: var(--shea-deep);
+  border-bottom: 1px solid var(--line);
+}
+.hero h1 {
+  font-size: clamp(2.75rem, 7vw, 5.25rem);
+  margin: 16px 0 24px;
+  max-width: 13em;
+}
+.hero h1 em {
+  color: var(--clay);
+}
+.lead {
+  font-size: 1.25rem;
+  max-width: 36em;
+  color: var(--cocoa-soft);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 64px;
+  padding-top: 96px;
+  align-items: center;
+}
+.barStack {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.barStack svg:nth-child(odd) {
+  transform: rotate(-5deg);
+}
+.barStack svg:nth-child(even) {
+  transform: rotate(4deg) translateY(24px);
+}
+.prose {
+  display: grid;
+  gap: 28px;
+  font-size: 1.1875rem;
+}
+.quote {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.625rem, 3vw, 2.125rem);
+  line-height: 1.25;
+  font-style: italic;
+  color: var(--clay);
+}
+
+.pillarsSection {
+  padding-top: 112px;
+}
+.pillarsSection h2 {
+  font-size: clamp(2.125rem, 4.5vw, 3.25rem);
+  margin-bottom: 40px;
+}
+.pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+.pillars li {
+  border-top: 1.5px solid var(--cocoa);
+  padding-top: 20px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.pillars h3 {
+  font-size: 1.5rem;
+}
+.num {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  color: var(--olive);
+}
+
+.thanks {
+  margin-top: 112px;
+  padding: 72px 48px;
+  border-radius: 32px;
+  background: var(--cocoa);
+  color: var(--shea);
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+.thanks .eyebrow {
+  color: var(--turmeric);
+}
+.thanks h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  max-width: 16em;
+}
+.thanks {
+  --focus: var(--turmeric); /* 5.8:1 on cocoa */
+}
+.thanks p:not(.eyebrow) {
+  color: var(--on-dark-soft);
+  max-width: 36em;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .barStack {
+    max-width: 420px;
+  }
+}
+@media (max-width: 520px) {
+  .thanks {
+    padding: 48px 24px;
+  }
+}
