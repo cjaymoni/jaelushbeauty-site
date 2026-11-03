@@ -133,4 +133,4 @@ export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
-export const INSTAGRAM_URL = "https://www.instagram.com/jaelushbeauty/";
+export { INSTAGRAM_URL } from "./site";

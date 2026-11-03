@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Chevron from "@/components/Chevron";
 import Reveal from "@/components/Reveal";
@@ -6,10 +7,11 @@ import { line } from "@/lib/reveal";
 import { INSTAGRAM_URL } from "@/lib/products";
 import styles from "./contact.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact & ordering",
   description: "How to order Jaelush Beauty soaps and get in touch with us.",
-};
+  path: "/contact",
+});
 
 const steps = [
   {

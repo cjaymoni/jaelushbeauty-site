@@ -6,6 +6,8 @@ import { line } from "@/lib/reveal";
 import SoapBar from "@/components/SoapBar";
 import TiltCard from "@/components/TiltCard";
 import { INSTAGRAM_URL, getProduct, products } from "@/lib/products";
+import JsonLd from "@/components/JsonLd";
+import { SITE_NAME, absoluteUrl, pageMetadata } from "@/lib/site";
 import styles from "./bar.module.css";
 
 export function generateStaticParams() {
@@ -16,10 +18,11 @@ export async function generateMetadata(props: PageProps<"/bars/[slug]">): Promis
   const { slug } = await props.params;
   const product = getProduct(slug);
   if (!product) return {};
-  return {
+  return pageMetadata({
     title: `${product.name} — ${product.variant}`,
     description: `${product.tagline} ${product.whyChoose}`,
-  };
+    path: `/bars/${product.slug}`,
+  });
 }
 
 export default async function BarPage(props: PageProps<"/bars/[slug]">) {
@@ -28,6 +31,16 @@ export default async function BarPage(props: PageProps<"/bars/[slug]">) {
   if (!product) notFound();
 
   const others = products.filter((p) => p.slug !== product.slug);
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${product.name} — ${product.variant}`,
+    description: product.description,
+    url: absoluteUrl(`/bars/${product.slug}`),
+    image: absoluteUrl(`/bars/${product.slug}/opengraph-image`),
+    brand: { "@type": "Brand", name: SITE_NAME },
+    category: "Soap",
+  };
 
   return (
     // key: replay the reveals when moving from one bar to another
@@ -35,6 +48,7 @@ export default async function BarPage(props: PageProps<"/bars/[slug]">) {
       key={product.slug}
       style={{ "--tint": product.colour.tint, "--deep": product.colour.deep } as React.CSSProperties}
     >
+      <JsonLd data={productJsonLd} />
       <section className={styles.hero}>
         <Reveal className={`container ${styles.heroInner}`}>
           <div className={`${styles.art} ${line(1)}`}>

@@ -1,8 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import MobileMenu, { type NavLink } from "@/components/MobileMenu";
-import { INSTAGRAM_URL } from "@/lib/products";
+import {
+  BRAND_COLOURS,
+  INSTAGRAM_URL,
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const display = Fraunces({
@@ -17,12 +25,41 @@ const body = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Jaelush Beauty — Handcrafted botanical skincare from Ghana",
-    template: "%s · Jaelush Beauty",
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "Ghanaian-owned skincare brand making cold-process olive oil soaps, body butters and botanical blends with shea, cocoa butter and nature's finest ingredients.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "Ghana skincare",
+    "handmade soap Ghana",
+    "cold-process soap",
+    "olive oil soap",
+    "shea butter",
+    "cocoa butter",
+    "botanical skincare",
+    "natural soap Accra",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
+    url: "/",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: BRAND_COLOURS.background,
 };
 
 // Cached so the year is fixed at build time rather than read on every render.

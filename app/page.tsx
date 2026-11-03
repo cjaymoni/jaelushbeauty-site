@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Chevron from "@/components/Chevron";
 import Reveal from "@/components/Reveal";
@@ -5,6 +6,8 @@ import { line } from "@/lib/reveal";
 import SoapBar from "@/components/SoapBar";
 import TiltCard from "@/components/TiltCard";
 import { INSTAGRAM_URL, products } from "@/lib/products";
+import JsonLd from "@/components/JsonLd";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import styles from "./page.module.css";
 
 const values = [
@@ -14,11 +17,28 @@ const values = [
   { title: "For everyone", text: "Made for men and women, and all skin types and complexions." },
 ];
 
+// Title, description and share card come from the root layout.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+/** Tells search engines who the brand is and links its social profile. */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  sameAs: [INSTAGRAM_URL],
+  address: { "@type": "PostalAddress", addressCountry: "GH" },
+};
+
 export default function Home() {
   const [glow, revive, detox, evenTone, purity] = products;
 
   return (
     <>
+      <JsonLd data={organizationJsonLd} />
       {/* Hero */}
       <section className={styles.hero}>
         <Reveal className={`container ${styles.heroInner}`}>

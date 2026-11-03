@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { line } from "@/lib/reveal";
@@ -6,11 +7,12 @@ import SoapBar from "@/components/SoapBar";
 import { INSTAGRAM_URL, products } from "@/lib/products";
 import styles from "./about.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our story",
   description:
     "Jaelush Beauty is a Ghanaian-owned skincare brand making handcrafted botanical soaps, body butters and skincare blends.",
-};
+  path: "/about",
+});
 
 const pillars = [
   {
