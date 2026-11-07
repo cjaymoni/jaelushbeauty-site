@@ -22,7 +22,7 @@ test("pageMetadata rejects a path without a leading slash", () => {
 
 test("absoluteUrl joins paths onto the live domain", () => {
   assert.equal(absoluteUrl("/"), "https://jaelushbeauty.com/");
-  assert.equal(absoluteUrl("/bars/glow-bar"), "https://jaelushbeauty.com/bars/glow-bar");
+  assert.equal(absoluteUrl("/shop/soaps"), "https://jaelushbeauty.com/shop/soaps");
 });
 
 test("serializeJsonLd escapes < so data cannot close the script tag", () => {

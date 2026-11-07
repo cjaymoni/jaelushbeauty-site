@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { isActivePath, type NavLink } from "@/lib/nav";
 
-export type NavLink = { href: string; label: string };
 
 // Reads a duration token in ms. The CSS minifier may rewrite "250ms" as ".25s".
 function cssTimeMs(name: string, fallback: number) {
@@ -90,7 +90,11 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
         <ul>
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} onClick={() => close()}>
+              <Link
+                href={l.href}
+                aria-current={isActivePath(pathname, l.href) ? "page" : undefined}
+                onClick={() => close()}
+              >
                 {l.label}
               </Link>
             </li>

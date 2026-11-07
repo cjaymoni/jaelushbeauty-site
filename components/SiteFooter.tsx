@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { NavLink } from "@/components/MobileMenu";
-import { products } from "@/lib/products";
+import { SHOP_PATH, categories, categoryPath, isComingSoon } from "@/lib/catalog";
+import type { NavLink } from "@/lib/nav";
 import { INSTAGRAM_URL } from "@/lib/site";
 
 // Cached so the year is fixed at build time rather than read on every render.
@@ -27,14 +27,20 @@ export default function SiteFooter({ links }: { links: NavLink[] }) {
             </a>
           </div>
 
-          <nav aria-labelledby="footer-bars" className="footer-col">
-            <h2 id="footer-bars" className="footer-heading">
-              The bars
+          <nav aria-labelledby="footer-shop" className="footer-col">
+            <h2 id="footer-shop" className="footer-heading">
+              Shop
             </h2>
             <ul>
-              {products.map((p) => (
-                <li key={p.slug}>
-                  <Link href={`/bars/${p.slug}`}>{p.name}</Link>
+              <li>
+                <Link href={SHOP_PATH}>All products</Link>
+              </li>
+              {categories.map((c) => (
+                <li key={c.slug}>
+                  <Link href={categoryPath(c)}>
+                    {c.name}
+                    {isComingSoon(c) && <span className="soon-tag">Soon</span>}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -45,11 +51,14 @@ export default function SiteFooter({ links }: { links: NavLink[] }) {
               Explore
             </h2>
             <ul>
-              {links.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href}>{l.label}</Link>
-                </li>
-              ))}
+              {/* Shop has its own column above. */}
+              {links
+                .filter((l) => l.href !== SHOP_PATH)
+                .map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href}>{l.label}</Link>
+                  </li>
+                ))}
             </ul>
           </nav>
 

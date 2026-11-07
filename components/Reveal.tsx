@@ -28,7 +28,10 @@ export default function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      // Fire as soon as any part enters the view. A ratio threshold (e.g. 0.15)
+      // can never be reached by a block taller than the viewport divided by
+      // that ratio, such as a long product grid on a short or zoomed screen.
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

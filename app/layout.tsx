@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
-import MobileMenu, { type NavLink } from "@/components/MobileMenu";
+import HeaderNav from "@/components/HeaderNav";
+import MobileMenu from "@/components/MobileMenu";
+import { SHOP_PATH } from "@/lib/catalog";
+import type { NavLink } from "@/lib/nav";
 import SiteFooter from "@/components/SiteFooter";
 import {
   BRAND_COLOURS,
@@ -17,6 +20,8 @@ import "./globals.css";
 const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
+  // Italic is used for emphasis and taglines; without it the browser fakes a slant.
+  style: ["normal", "italic"],
   axes: ["SOFT", "opsz"],
 });
 
@@ -64,7 +69,7 @@ export const viewport: Viewport = {
 };
 
 const navLinks: NavLink[] = [
-  { href: "/#bars", label: "Shop bars" },
+  { href: SHOP_PATH, label: "Shop" },
   { href: "/about", label: "Our story" },
   { href: "/contact", label: "Contact" },
 ];
@@ -85,15 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Link href="/" className="wordmark" aria-label="Jaelush Beauty home">
               Jaelush<span>Beauty</span>
             </Link>
-            <nav aria-label="Main" className="desktop-nav">
-              <ul>
-                {navLinks.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href}>{l.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <HeaderNav links={navLinks} />
             <div className="header-actions">
               <a className="btn btn-small" href={INSTAGRAM_URL}>
                 Order<span className="cta-extra"> on Instagram</span>

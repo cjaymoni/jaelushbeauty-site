@@ -29,43 +29,62 @@
   margin-top: 32px;
 }
 
-.heroArt {
+.cover {
+  object-fit: cover;
+}
+
+.heroMedia {
   position: relative;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 45%, var(--turmeric-glow) 0%, var(--shea-deep) 65%);
 }
-.float {
+.heroPhoto {
+  position: relative;
+  aspect-ratio: 1080 / 734;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -40px rgb(59 36 24 / 0.5);
+  isolation: isolate;
+}
+/* "New" product link that overlaps the hero photo */
+.newChip {
   position: absolute;
-  width: 58%;
-  filter: drop-shadow(0 18px 24px rgb(59 36 24 / 0.18));
+  left: -28px;
+  bottom: -28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px 10px 10px;
+  border-radius: 20px;
+  background: var(--shea);
+  box-shadow: 0 18px 40px -18px rgb(59 36 24 / 0.45);
+  text-decoration: none;
+  transition: translate 400ms var(--ease);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .float {
-    animation: float 7s ease-in-out infinite;
+@media (hover: hover) {
+  .newChip:hover {
+    translate: 0 -3px;
   }
 }
-.f1 {
-  top: 10%;
-  left: 4%;
-  transform: rotate(-10deg);
+.newThumb {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border-radius: 12px;
+  overflow: hidden;
 }
-.f2 {
-  top: 34%;
-  right: 0;
-  transform: rotate(8deg);
-  animation-delay: -2.3s;
+.newLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
 }
-.f3 {
-  bottom: 6%;
-  left: 14%;
-  transform: rotate(-3deg);
-  animation-delay: -4.6s;
-}
-@keyframes float {
-  50% {
-    translate: 0 -10px;
-  }
+.newName {
+  display: block;
+  font-family: var(--font-display), serif;
+  font-size: 1.125rem;
+  line-height: 1.2;
 }
 
 /* Values */
@@ -91,99 +110,105 @@
   padding-top: 112px;
 }
 .sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-bottom: 40px;
+}
+.sectionHead > div:first-child {
   max-width: 600px;
-  margin-bottom: 48px;
 }
 .sectionHead h2,
 .story h2,
+.spotlight h2,
 .glowmates h2 {
   font-size: clamp(2.125rem, 4.5vw, 3.25rem);
   margin: 12px 0 16px;
 }
 
-/* Bar cards */
-.barGrid {
+/* New product spotlight: dark and gold, like the Golden Essence packaging */
+.spotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  border-radius: 32px;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--shea);
+  isolation: isolate;
+  --focus: var(--turmeric);
+}
+.spotlightPhoto {
+  position: relative;
+  min-height: 520px;
+}
+.spotlightCopy {
+  padding: 64px 56px;
+  align-self: center;
+}
+.spotlight :global(.eyebrow) {
+  color: var(--gold);
+}
+.spotlightTagline {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: 1.375rem;
+  color: var(--on-dark-soft);
+  margin-bottom: 28px;
+}
+.madeWith {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
+  margin-bottom: 12px;
+}
+.ingredients {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-.barCard {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  height: 100%;
-  padding: 24px;
-  border-radius: var(--radius);
-  background: var(--tint);
-  text-decoration: none;
-  /* keep the tilt's transform transition and add the shadow */
-  transition:
-    transform var(--tilt-return) var(--tilt-return-ease),
-    box-shadow 400ms var(--ease);
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.barCard:global(.is-tilting) {
-  transition:
-    transform var(--tilt-follow) var(--tilt-follow-ease),
-    box-shadow 400ms var(--ease);
-}
-.tilt {
-  height: 100%;
-}
-.cardArt {
-  margin: -8px auto 12px;
-  width: 85%;
-  transition: rotate 600ms var(--ease), scale 600ms var(--ease);
-}
-@media (hover: hover) {
-  .barCard:hover {
-    box-shadow: 0 28px 48px -20px rgb(59 36 24 / 0.45);
-  }
-}
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .barCard:hover .cardArt {
-    rotate: -6deg;
-    scale: 1.06;
-  }
-}
-.barCard h3 {
-  font-size: 1.75rem;
-}
-.variant {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--deep);
-}
-.more {
-  margin-top: auto;
-  padding-top: 16px;
-  font-weight: 600;
-  color: var(--deep);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.ingredients li {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px var(--gold-line);
+  color: var(--gold-soft);
+  font-size: 0.9375rem;
 }
 
 /* Story */
 .storyInner {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 48px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 64px;
+  align-items: center;
   padding-block: 72px;
   border-top: 1px solid var(--line);
+}
+.storyPhoto {
+  position: relative;
+  aspect-ratio: 5 / 6;
+  border-radius: 28px;
+  overflow: hidden;
+  isolation: isolate;
 }
 .storyText {
   display: grid;
   gap: 20px;
   font-size: 1.1875rem;
 }
+.storyText h2 {
+  margin: 0;
+}
 
 .readMore {
   justify-self: start;
+  min-height: 44px;
   font-weight: 600;
   color: var(--clay);
   text-decoration: none;
@@ -208,10 +233,10 @@
   justify-items: center;
   gap: 4px;
 }
-.glowmates .eyebrow {
+.glowmates :global(.eyebrow) {
   color: var(--turmeric);
 }
-.glowmates p:not(.eyebrow) {
+.glowmates p:not(:global(.eyebrow)) {
   max-width: 36em;
   margin-bottom: 24px;
   color: var(--on-dark-soft);
@@ -222,13 +247,26 @@
 
 @media (max-width: 900px) {
   .heroInner,
-  .storyInner {
+  .storyInner,
+  .spotlight {
     grid-template-columns: 1fr;
   }
-  .heroArt {
+  .heroMedia {
+    margin-bottom: 28px;
+  }
+  .newChip {
+    left: 16px;
+  }
+  .spotlightPhoto {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  .spotlightCopy {
+    padding: 40px 28px 44px;
+  }
+  .storyPhoto {
     max-width: 440px;
-    width: 100%;
-    margin: 0 auto;
+    aspect-ratio: 4 / 3;
   }
   .valuesGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -241,5 +279,8 @@
   }
   .section {
     padding-top: 80px;
+  }
+  .spotlightPhoto {
+    aspect-ratio: 4 / 5;
   }
 }

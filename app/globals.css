@@ -9,7 +9,15 @@
   --turmeric: #d9962b; /* highlight; focus ring on dark surfaces */
   --turmeric-glow: #f6d9a8; /* hero halo */
   --olive: #56622f; /* botanical accent */
+  --olive-deep: #465026; /* small olive text on tinted fills; 5.7:1 on shea-deep */
   --line: #ddcdb6;
+  /* Golden Essence spotlight: dark and gold, like the jar label */
+  --night: #1f1712; /* spotlight surface */
+  --gold: #e3b341; /* gold button fill and eyebrow on night */
+  --gold-hover: #f0c75e;
+  --gold-soft: #f3dfa6; /* ingredient chip text on night */
+  --gold-line: rgb(227 179 65 / 0.45); /* ingredient chip outline */
+  --gold-deep: #8a6414; /* gold-family text on light surfaces; 4.7:1 on shea */
   --on-clay: #ffffff; /* text on clay buttons */
   --on-dark-soft: #e6d6c3; /* secondary text on cocoa */
   --focus: var(--cocoa); /* 12.8:1 on shea */
@@ -155,6 +163,11 @@ svg {
   color: var(--shea);
   box-shadow: inset 0 0 0 1.5px var(--shea);
 }
+/* Gold button for dark, Golden Essence-style sections */
+.btn-gold {
+  background: var(--gold);
+  color: var(--cocoa);
+}
 .btn-small {
   min-height: 44px;
   padding: 0 18px;
@@ -168,6 +181,9 @@ svg {
   .btn-ghost:hover {
     background: var(--cocoa);
     color: var(--shea);
+  }
+  .btn-gold:hover {
+    background: var(--gold-hover);
   }
   .btn-ghost-light:hover {
     background: var(--shea);
@@ -222,6 +238,16 @@ svg {
   color: var(--cocoa-soft);
   transition: color 150ms ease-out;
 }
+.site-header nav a[aria-current="page"] {
+  color: var(--cocoa);
+  text-decoration: underline;
+  text-decoration-color: var(--clay);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+.mobile-menu nav a[aria-current="page"] {
+  text-underline-offset: 6px;
+}
 .header-actions {
   display: flex;
   align-items: center;
@@ -275,7 +301,81 @@ svg {
   border-bottom: 0;
 }
 
-/* Footer */
+/* Breadcrumbs */
+.breadcrumbs ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.9375rem;
+  color: var(--cocoa-soft);
+}
+.breadcrumbs li + li::before {
+  content: "/";
+  margin-inline: 10px;
+  opacity: 0.5;
+}
+.breadcrumbs a {
+  color: var(--cocoa-soft);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.breadcrumbs [aria-current="page"] {
+  color: var(--cocoa);
+  font-weight: 600;
+}
+@media (hover: hover) {
+  .breadcrumbs a:hover {
+    color: var(--cocoa);
+    text-decoration: underline;
+  }
+}
+
+/* Shop category pills */
+.category-tabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.category-tabs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px var(--line);
+  background: var(--shea);
+  color: var(--cocoa-soft);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+}
+.category-tabs a[aria-current="page"] {
+  background: var(--cocoa);
+  color: var(--shea);
+  box-shadow: none;
+}
+.category-tabs a[aria-current="page"] .soon-tag {
+  color: var(--shea);
+  background: rgb(255 255 255 / 0.15);
+}
+@media (hover: hover) {
+  .category-tabs a:not([aria-current="page"]):hover {
+    color: var(--cocoa);
+    box-shadow: inset 0 0 0 1px var(--cocoa-soft);
+  }
+}
+
 /* Footer */
 .site-footer {
   margin-top: 112px;
@@ -335,6 +435,17 @@ svg {
   color: var(--clay);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+.soon-tag {
+  margin-inline-start: 8px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--olive) 14%, transparent);
+  color: var(--olive-deep);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .footer-bottom {
   display: flex;
@@ -426,15 +537,6 @@ svg {
   --dropdown-pre-scale: 0.92;
   --dropdown-closing-scale: 0.97;
   --dropdown-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  /* Card hover tilt */
-  --tilt-perspective: 900px;
-  --tilt-return: 1000ms;
-  --tilt-return-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --tilt-follow: 400ms;
-  --tilt-follow-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --tilt-glare-opacity: 0.45;
-  --tilt-glare-fade: 300ms;
-  --tilt-glare-ease: cubic-bezier(0.22, 1, 0.36, 1);
   /* Learn more hover */
   --learn-shift: 6px;
   --learn-spread: 14deg;
@@ -453,7 +555,6 @@ svg {
     opacity   var(--stagger-dur) var(--stagger-ease),
     transform var(--stagger-dur) var(--stagger-ease),
     filter    var(--stagger-dur) var(--stagger-ease);
-  will-change: transform, opacity, filter;
 }
 .t-stagger-line--2 { transition-delay: var(--stagger-stagger); }
 .t-stagger-line--3 { transition-delay: calc(var(--stagger-stagger) * 2); }
@@ -516,49 +617,6 @@ svg {
   .t-dropdown { transition: none !important; }
 }
 
-/* Card hover tilt */
-.t-tilt { touch-action: none; }
-.t-tilt-card {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  transform:
-    perspective(var(--tilt-perspective))
-    rotateX(var(--tilt-rx, 0deg))
-    rotateY(var(--tilt-ry, 0deg));
-  transform-style: preserve-3d;
-  transition: transform var(--tilt-return) var(--tilt-return-ease);
-  will-change: transform;
-}
-.t-tilt-card.is-tilting {
-  transition: transform var(--tilt-follow) var(--tilt-follow-ease);
-}
-.t-tilt-glare {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: screen;
-  background:
-    radial-gradient(circle 95px at var(--tilt-gx, 50%) var(--tilt-gy, 50%),
-      rgba(255,255,255,0.48), rgba(255,255,255,0.06) 52%, rgba(255,255,255,0) 84%),
-    radial-gradient(circle 200px at var(--tilt-gx, 50%) var(--tilt-gy, 50%),
-      rgba(255,255,255,0.22), rgba(255,255,255,0.04) 58%, rgba(255,255,255,0) 78%),
-    radial-gradient(circle 360px at var(--tilt-gx, 50%) var(--tilt-gy, 50%),
-      rgba(255,255,255,0.10), rgba(255,255,255,0) 88%);
-  transition: opacity var(--tilt-glare-fade) var(--tilt-glare-ease);
-}
-.t-tilt.is-hover .t-tilt-glare { opacity: var(--tilt-glare-opacity); }
-
-@media (prefers-reduced-motion: reduce) {
-  .t-tilt-card { transform: none !important; transition: none !important; }
-}
-/* Site-specific: the cards fill the screen on phones, so a finger must still
-   scroll the page. Tilt is mouse-only here (see TiltCard.tsx). */
-@media (pointer: coarse) {
-  .t-tilt { touch-action: auto; }
-}
-
 /* Learn more hover */
 .t-learn-chevron {
   display: inline-flex;
@@ -571,10 +629,13 @@ svg {
   vector-effect: non-scaling-stroke;
   transition: transform var(--learn-out) var(--learn-ease);
 }
-.t-learn:hover .t-learn-chevron { transform: translateX(var(--learn-shift)); transition-duration: var(--learn-in); }
-.t-learn:hover .t-learn-arm { transition-duration: var(--learn-in); }
-.t-learn:hover .t-learn-arm-top { transform: rotate(var(--learn-spread)); }
-.t-learn:hover .t-learn-arm-bot { transform: rotate(calc(var(--learn-spread) * -1)); }
+/* Mouse and trackpad only: on touch, :hover sticks after a tap. */
+@media (hover: hover) {
+  .t-learn:hover .t-learn-chevron { transform: translateX(var(--learn-shift)); transition-duration: var(--learn-in); }
+  .t-learn:hover .t-learn-arm { transition-duration: var(--learn-in); }
+  .t-learn:hover .t-learn-arm-top { transform: rotate(var(--learn-spread)); }
+  .t-learn:hover .t-learn-arm-bot { transform: rotate(calc(var(--learn-spread) * -1)); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .t-learn-chevron, .t-learn-arm { transition: none !important; }

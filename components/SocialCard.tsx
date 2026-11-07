@@ -3,13 +3,16 @@ import { BRAND_COLOURS } from "@/lib/site";
 /** Size for Open Graph / Twitter share images (the 1.91:1 size most platforms expect). */
 export const SOCIAL_CARD_SIZE = { width: 1200, height: 630 };
 
+/** Width of the photo panel on the right of the card. */
+const PHOTO_WIDTH = 480;
+
 type SocialCardProps = {
   eyebrow: string;
   title: string;
   subtitle: string;
-  /** Soap bar colours drawn on the right of the card. */
-  bar: { face: string; side: string };
-  /** Background tint behind the bar. */
+  /** Photo for the right-hand panel, as a data URL (see loadPublicImage). */
+  photo?: string;
+  /** Panel colour, shown behind the photo or on its own when there is none. */
   tint: string;
 };
 
@@ -18,7 +21,7 @@ type SocialCardProps = {
  * supports only a subset of CSS (flexbox, no grid), so every element with
  * more than one child sets `display: flex`.
  */
-export default function SocialCard({ eyebrow, title, subtitle, bar, tint }: SocialCardProps) {
+export default function SocialCard({ eyebrow, title, subtitle, photo, tint }: SocialCardProps) {
   return (
     <div
       style={{
@@ -72,38 +75,24 @@ export default function SocialCard({ eyebrow, title, subtitle, bar, tint }: Soci
       </div>
       <div
         style={{
-          width: 420,
+          width: PHOTO_WIDTH,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           background: tint,
         }}
       >
-        {/* A simple soap bar: darker side slab with the lighter face on top. */}
-        <div style={{ display: "flex", position: "relative", width: 280, height: 200 }}>
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 18,
-              width: 280,
-              height: 182,
-              borderRadius: 40,
-              background: bar.side,
-            }}
+        {photo && (
+          // ImageResponse needs a plain <img>; next/image does not work here.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={photo}
+            alt=""
+            width={PHOTO_WIDTH}
+            height={SOCIAL_CARD_SIZE.height}
+            style={{ width: PHOTO_WIDTH, height: "100%", objectFit: "cover" }}
           />
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: 280,
-              height: 182,
-              borderRadius: 40,
-              background: `linear-gradient(135deg, ${bar.face}, ${bar.side})`,
-            }}
-          />
-        </div>
+        )}
       </div>
     </div>
   );

@@ -3,8 +3,9 @@ import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { line } from "@/lib/reveal";
-import SoapBar from "@/components/SoapBar";
-import { INSTAGRAM_URL, products } from "@/lib/products";
+import Image from "next/image";
+import { getCategory } from "@/lib/catalog";
+import { INSTAGRAM_URL } from "@/lib/products";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -34,7 +35,7 @@ const pillars = [
 ];
 
 export default function AboutPage() {
-  const [glow, revive, detox, evenTone, purity] = products;
+  const collection = getCategory("soaps")?.image;
 
   return (
     <>
@@ -54,11 +55,17 @@ export default function AboutPage() {
 
       <Reveal as="section" className={`container ${styles.split}`}>
         <div className={line(1)}>
-        <div className={styles.barStack} aria-hidden="true">
-          {[glow, revive, detox, evenTone, purity].map((p) => (
-            <SoapBar key={p.slug} product={p} />
-          ))}
-        </div>
+        {collection && (
+          <div className={styles.photo}>
+            <Image
+              src={collection.src}
+              alt={collection.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 480px"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        )}
         </div>
         <div className={line(2)}>
         <div className={styles.prose}>
@@ -110,8 +117,8 @@ export default function AboutPage() {
           </p>
           <div className={line(4)}>
           <div className={styles.actions}>
-            <Link href="/#bars" className="btn">
-              Shop the bars
+            <Link href="/shop" className="btn">
+              Visit the shop
             </Link>
             <a className="btn btn-ghost-light" href={INSTAGRAM_URL}>
               Follow @jaelushbeauty

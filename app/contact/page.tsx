@@ -15,12 +15,12 @@ export const metadata: Metadata = pageMetadata({
 
 const steps = [
   {
-    title: "Pick your bar",
-    text: "Browse the collection and choose the bar, or bars, your skin is asking for.",
+    title: "Pick your products",
+    text: "Browse the shop and choose the soaps and body butters your skin is asking for.",
   },
   {
     title: "Send us a DM",
-    text: "Message @jaelushbeauty on Instagram with the bars and quantities you would like.",
+    text: "Message @jaelushbeauty on Instagram with the products and quantities you would like.",
   },
   {
     title: "We confirm your order",
@@ -97,8 +97,8 @@ export default function ContactPage() {
           </dl>
         </Reveal>
         <p className={styles.back}>
-          Not sure which bar to choose? <Link href="/#bars" className="t-learn">
-            Compare all five bars <Chevron />
+          Not sure which bar to choose? <Link href="/shop/soaps" className="t-learn">
+            Compare our soaps <Chevron />
           </Link>
         </p>
       </section>

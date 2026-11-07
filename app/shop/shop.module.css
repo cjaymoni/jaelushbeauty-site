@@ -1,0 +1,130 @@
+/* Shared by the shop page and the category pages. */
+
+.header {
+  background: var(--tint, var(--shea-deep));
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0 48px;
+}
+.header h1 {
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  margin: 12px 0 16px;
+}
+.headerSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+.headerPhoto {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 30px 60px -30px rgb(59 36 24 / 0.45);
+}
+@media (max-width: 900px) {
+  .headerSplit {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .headerPhoto {
+    max-width: 520px;
+  }
+}
+.lead {
+  font-size: 1.1875rem;
+  color: var(--cocoa-soft);
+  max-width: 36em;
+  margin-bottom: 32px;
+}
+
+.section {
+  padding-top: 80px;
+}
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 32px;
+}
+.sectionHead h2 {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  margin-bottom: 8px;
+}
+.sectionHead p {
+  max-width: 36em;
+}
+.viewAll {
+  font-weight: 600;
+  color: var(--clay);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+}
+
+/* "How ordering works" strip */
+.ordering {
+  margin-top: 96px;
+  padding: 40px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.ordering h2 {
+  font-size: 1.75rem;
+  margin-bottom: 6px;
+}
+
+/* Coming soon */
+.soon {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 48px;
+  align-items: center;
+  padding: 48px;
+  border-radius: 32px;
+  background: var(--tint);
+}
+.soonArt {
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+}
+.soon h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 12px 0 16px;
+}
+.soon p:not(:global(.eyebrow)) {
+  color: var(--cocoa-soft);
+  max-width: 32em;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+@media (max-width: 760px) {
+  .soon {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+  .soonArt {
+    max-width: 240px;
+  }
+  .ordering {
+    padding: 28px 24px;
+  }
+}

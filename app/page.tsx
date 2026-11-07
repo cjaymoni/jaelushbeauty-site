@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import CategoryCards from "@/components/CategoryCards";
 import Chevron from "@/components/Chevron";
-import Reveal from "@/components/Reveal";
-import { line } from "@/lib/reveal";
-import SoapBar from "@/components/SoapBar";
-import TiltCard from "@/components/TiltCard";
-import { INSTAGRAM_URL, products } from "@/lib/products";
 import JsonLd from "@/components/JsonLd";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import ProductGrid from "@/components/ProductGrid";
+import Reveal from "@/components/Reveal";
+import {
+  SHOP_PATH,
+  categoryPath,
+  getCategory,
+  getProductInCategory,
+  productPath,
+  productsInCategory,
+} from "@/lib/catalog";
+import { line } from "@/lib/reveal";
+import { INSTAGRAM_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import styles from "./page.module.css";
 
 const values = [
@@ -16,6 +24,20 @@ const values = [
   { title: "Small-batch, by hand", text: "Made in small runs so every detail gets attention." },
   { title: "For everyone", text: "Made for men and women, and all skin types and complexions." },
 ];
+
+/** Ingredients listed on the Golden Essence packaging, shown in the spotlight. */
+const goldenEssenceIngredients = [
+  "Shea butter",
+  "Mango butter",
+  "Carrot oil",
+  "Rosehip oil",
+  "Coconut oil",
+  "Almond oil",
+  "Vitamin E",
+];
+
+/** How many soaps to feature on the home page; the rest live in the shop. */
+const FEATURED_COUNT = 4;
 
 // Title, description and share card come from the root layout.
 export const metadata: Metadata = {
@@ -34,41 +56,70 @@ const organizationJsonLd = {
 };
 
 export default function Home() {
-  const [glow, revive, detox, evenTone, purity] = products;
+  const soaps = getCategory("soaps")!;
+  const featured = productsInCategory(soaps.slug).slice(0, FEATURED_COUNT);
+  const goldenEssence = getProductInCategory("body-butters", "golden-essence-body-butter")!;
+  const lifestyle = goldenEssence.images[1] ?? goldenEssence.images[0];
+  const purity = getProductInCategory("soaps", "purity-bar")!;
+  const storyPhoto = purity.images[1] ?? purity.images[0];
 
   return (
     <>
       <JsonLd data={organizationJsonLd} />
+
       {/* Hero */}
       <section className={styles.hero}>
         <Reveal className={`container ${styles.heroInner}`}>
           <div className={styles.heroCopy}>
-            <p className={`eyebrow ${line(1)}`}>Handcrafted botanical skincare · Ghana</p>
+            <p className={`eyebrow ${line(1)}`}>Naturally crafted. Beautifully you.</p>
             <h1 className={line(2)}>
               Care for the skin <em>you&rsquo;re in.</em>
             </h1>
             <p className={`${styles.lead} ${line(3)}`}>
-              Olive oil soaps, body butters and botanical blends made with shea, cocoa butter and
-              nature&rsquo;s finest ingredients. Not to change who you are, but to help your skin
-              look and feel its best.
+              Handcrafted olive oil soaps and body butters, made in small batches in Ghana with
+              shea, cocoa butter and nature&rsquo;s finest botanicals. Not to change who you are,
+              but to help your skin look and feel its best.
             </p>
             <div className={line(4)}>
               <div className={styles.actions}>
-                <Link href="#bars" className="btn">
-                  Shop the bars
+                <Link href={SHOP_PATH} className="btn">
+                  Visit the shop
                 </Link>
-                <Link href="#story" className="btn btn-ghost">
+                <Link href="/about" className="btn btn-ghost">
                   Our story
                 </Link>
               </div>
             </div>
           </div>
-          <div className={line(3)}>
-            <div className={styles.heroArt} aria-hidden="true">
-              <SoapBar product={glow} className={`${styles.float} ${styles.f1}`} />
-              <SoapBar product={revive} className={`${styles.float} ${styles.f2}`} />
-              <SoapBar product={purity} className={`${styles.float} ${styles.f3}`} />
-            </div>
+          <div className={`${styles.heroMedia} ${line(3)}`}>
+            {soaps.image && (
+              <div className={styles.heroPhoto}>
+                <Image
+                  src={soaps.image.src}
+                  alt={soaps.image.alt}
+                  fill
+                  preload
+                  sizes="(max-width: 900px) 100vw, 580px"
+                  className={styles.cover}
+                />
+              </div>
+            )}
+            <Link href={productPath(goldenEssence)} className={styles.newChip}>
+              <span className={styles.newThumb}>
+                <Image
+                  src={goldenEssence.images[0].src}
+                  alt=""
+                  fill
+                  sizes="56px"
+                  className={styles.cover}
+                />
+              </span>
+              <span>
+                <span className={styles.newLabel}>New</span>
+                <span className={styles.newName}>{goldenEssence.name}</span>
+              </span>
+              <Chevron />
+            </Link>
           </div>
         </Reveal>
       </section>
@@ -85,59 +136,109 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* Bars */}
-      <section id="bars" className={styles.section}>
+      {/* Categories */}
+      <section className={styles.section} aria-labelledby="categories-heading">
         <div className="container">
           <Reveal className={styles.sectionHead}>
-            <p className={`eyebrow ${line(1)}`}>The soap collection</p>
-            <h2 className={line(2)}>Five bars, five rituals</h2>
-            <p className={`muted ${line(3)}`}>
-              Each bar is made with olive oil and a purposeful blend of botanicals. Find the one
-              your skin is asking for.
-            </p>
+            <div>
+              <p className={`eyebrow ${line(1)}`}>The shop</p>
+              <h2 id="categories-heading" className={line(2)}>
+                Shop by category
+              </h2>
+            </div>
+            <div className={line(3)}>
+              <Link href={SHOP_PATH} className={`t-learn ${styles.readMore}`}>
+                Browse the shop <Chevron />
+              </Link>
+            </div>
           </Reveal>
-          <Reveal as="ul" className={styles.barGrid}>
-            {[glow, revive, detox, evenTone, purity].map((p, i) => (
-              <li key={p.slug} className={line(i + 1)}>
-                <TiltCard className={styles.tilt}>
-                  <Link
-                      href={`/bars/${p.slug}`}
-                      className={`t-tilt-card ${styles.barCard} t-learn`}
-                      style={{ "--tint": p.colour.tint, "--deep": p.colour.deep } as React.CSSProperties}
-                    >
-                      <SoapBar product={p} className={styles.cardArt} decorative />
-                      <span className={styles.variant}>{p.variant}</span>
-                      <h3>{p.name}</h3>
-                      <p className="muted">{p.tagline}</p>
-                      <span className={styles.more}>
-                        Discover <Chevron />
-                      </span>
-                      <span className="t-tilt-glare" />
-                    </Link>
-                </TiltCard>
-              </li>
-            ))}
+          <CategoryCards />
+        </div>
+      </section>
+
+      {/* New product spotlight */}
+      <section className={styles.section} aria-labelledby="spotlight-heading">
+        <div className="container">
+          <Reveal className={styles.spotlight}>
+            <div className={`${styles.spotlightPhoto} ${line(1)}`}>
+              <Image
+                src={lifestyle.src}
+                alt={lifestyle.alt}
+                fill
+                sizes="(max-width: 900px) 100vw, 520px"
+                className={styles.cover}
+                style={{ objectPosition: lifestyle.position }}
+              />
+            </div>
+            <div className={styles.spotlightCopy}>
+              <p className={`eyebrow ${line(1)}`}>New · You asked, we listened</p>
+              <h2 id="spotlight-heading" className={line(2)}>
+                {goldenEssence.name}
+              </h2>
+              <p className={`${styles.spotlightTagline} ${line(3)}`}>{goldenEssence.tagline}</p>
+              <div className={line(4)}>
+                <p className={styles.madeWith}>Made with</p>
+                <ul className={styles.ingredients}>
+                  {goldenEssenceIngredients.map((ing) => (
+                    <li key={ing}>{ing}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={line(5)}>
+                <div className={styles.actions}>
+                  <Link href={productPath(goldenEssence)} className="btn btn-gold">
+                    Shop Golden Essence
+                  </Link>
+                  <a className="btn btn-ghost-light" href={INSTAGRAM_URL}>
+                    Order on Instagram
+                  </a>
+                </div>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
 
+      {/* Featured soaps */}
+      <section className={styles.section} aria-labelledby="featured-heading">
+        <div className="container">
+          <Reveal className={styles.sectionHead}>
+            <div>
+              <p className={`eyebrow ${line(1)}`}>The soap collection</p>
+              <h2 id="featured-heading" className={line(2)}>
+                A bar for every ritual
+              </h2>
+              <p className={`muted ${line(3)}`}>{soaps.intro}</p>
+            </div>
+            <div className={line(4)}>
+              <Link href={categoryPath(soaps)} className={`t-learn ${styles.readMore}`}>
+                All soaps <Chevron />
+              </Link>
+            </div>
+          </Reveal>
+          <ProductGrid products={featured} />
+        </div>
+      </section>
+
       {/* Story */}
-      <section id="story" className={`${styles.section} ${styles.story}`}>
+      <section className={`${styles.section} ${styles.story}`}>
         <Reveal className={`container ${styles.storyInner}`}>
-          <div className={line(1)}>
-            <p className="eyebrow">About us</p>
-            <h2>Born from a love of natural beauty</h2>
+          <div className={`${styles.storyPhoto} ${line(1)}`}>
+            <Image
+              src={storyPhoto.src}
+              alt={storyPhoto.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 460px"
+              className={styles.cover}
+            />
           </div>
           <div className={`${styles.storyText} ${line(2)}`}>
+            <p className="eyebrow">About us</p>
+            <h2>Born from a love of natural beauty</h2>
             <p>
               Jaelush Beauty is a Ghanaian-owned skincare brand born out of a passion for natural
               beauty, thoughtful formulation and the belief that healthy-looking skin deserves
               intentional care.
-            </p>
-            <p>
-              We believe skincare is not about changing who you are or altering your natural
-              complexion. It is about embracing your skin, giving it the care it deserves and
-              enhancing its natural beauty.
             </p>
             <p>
               Our formulations are designed with everyday life in mind, for people living where
@@ -153,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* Glowmates */}
-      <section id="glowmates" className={styles.section}>
+      <section className={styles.section}>
         <div className="container">
           <Reveal className={styles.glowmates}>
             <p className={`eyebrow ${line(1)}`}>Our community</p>
