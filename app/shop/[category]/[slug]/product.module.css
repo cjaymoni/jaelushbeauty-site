@@ -54,18 +54,18 @@
   margin-bottom: 32px;
 }
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 24px;
+  display: grid;
+  gap: 16px;
+}
+.orderNote {
+  font-size: 0.9375rem;
+  color: var(--cocoa-soft);
+  max-width: 30em;
 }
 .howTo {
   font-weight: 600;
   color: var(--cocoa);
   text-underline-offset: 4px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
 }
 
 .details {

@@ -254,6 +254,224 @@ svg {
   gap: 8px;
 }
 
+/* Header basket link */
+.basket-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 16px 0 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1.5px var(--cocoa);
+  color: var(--cocoa);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+}
+.basket-link[aria-current="page"] {
+  background: var(--cocoa);
+  color: var(--shea);
+}
+@media (hover: hover) {
+  .basket-link:hover {
+    background: var(--cocoa);
+    color: var(--shea);
+  }
+}
+.basket-badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--clay);
+  color: var(--on-clay);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  animation: badge-pop 420ms var(--ease);
+}
+@keyframes badge-pop {
+  0% {
+    scale: 0.4;
+  }
+  55% {
+    scale: 1.2;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+/* Quantity stepper: − [n] + */
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #c9b498;
+}
+.stepper button {
+  width: 44px;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--cocoa);
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+}
+.stepper button:disabled {
+  color: #b3a191;
+  cursor: not-allowed;
+}
+@media (hover: hover) {
+  .stepper button:not(:disabled):hover {
+    background: var(--shea-deep);
+  }
+}
+.stepper input {
+  width: 36px;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--cocoa);
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+.stepper input:focus-visible {
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+.stepper-small {
+  height: 44px;
+}
+.stepper-small button {
+  width: 40px;
+}
+
+/* Add to basket (product page) */
+.add-to-basket {
+  display: grid;
+  gap: 12px;
+}
+.add-to-basket-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.add-btn {
+  min-height: 48px;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1 1 200px;
+  justify-content: center;
+}
+.add-btn:disabled {
+  background: var(--cocoa-soft);
+  cursor: not-allowed;
+}
+.add-btn.is-added {
+  background: var(--olive-deep);
+}
+.add-btn-icon {
+  display: grid;
+}
+.add-btn-icon > svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity 200ms ease-out,
+    scale 300ms var(--ease);
+}
+.add-btn .icon-check,
+.add-btn.is-added .icon-bag {
+  opacity: 0;
+  scale: 0.5;
+}
+.add-btn.is-added .icon-check {
+  opacity: 1;
+  scale: 1;
+}
+.add-to-basket-note {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--olive-deep);
+}
+.add-to-basket-note a {
+  color: var(--clay);
+  text-underline-offset: 3px;
+}
+
+/* Quick add (product cards) */
+.quick-add {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--cocoa);
+  box-shadow: 0 6px 16px -6px rgb(59 36 24 / 0.45);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out,
+    scale 150ms ease-out;
+}
+.quick-add > svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity 200ms ease-out,
+    scale 300ms var(--ease);
+}
+.quick-add:active:not(:disabled) {
+  scale: 0.92;
+}
+.quick-add:disabled:not(.is-added) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.quick-add .icon-check,
+.quick-add.is-added .icon-plus {
+  opacity: 0;
+  scale: 0.5;
+}
+.quick-add.is-added {
+  background: var(--olive-deep);
+  color: #fff;
+}
+.quick-add.is-added .icon-check {
+  opacity: 1;
+  scale: 1;
+}
+@media (hover: hover) {
+  .quick-add:not(.is-added):not(:disabled):hover {
+    background: var(--clay);
+    color: var(--on-clay);
+  }
+}
+
 /* Phone menu: a native disclosure, hidden on wide screens */
 .mobile-menu {
   display: none;
@@ -504,8 +722,8 @@ svg {
 }
 
 @media (max-width: 420px) {
-  /* "Order on Instagram" → "Order" so the header stays on one line */
-  .cta-extra {
+  /* Icon and count only, so the header stays on one line */
+  .basket-link-label {
     display: none;
   }
 }

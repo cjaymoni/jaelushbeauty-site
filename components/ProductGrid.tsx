@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Chevron from "@/components/Chevron";
+import QuickAdd from "@/components/QuickAdd";
 import Reveal from "@/components/Reveal";
 import { productPath } from "@/lib/catalog";
 import type { Product } from "@/lib/products";
@@ -25,7 +26,7 @@ export default function ProductGrid({
       {products.map((p, i) => {
         const photo = p.images[0];
         return (
-          <li key={p.slug} className={line(i + 1)}>
+          <li key={p.slug} className={`${styles.item} ${line(i + 1)}`}>
             <Link
               href={productPath(p)}
               className={`t-learn ${styles.card}`}
@@ -48,6 +49,7 @@ export default function ProductGrid({
                 Discover <Chevron />
               </span>
             </Link>
+            <QuickAdd slug={p.slug} label={p.name} className={styles.quickAdd} />
           </li>
         );
       })}

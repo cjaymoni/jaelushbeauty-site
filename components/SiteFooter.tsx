@@ -65,7 +65,7 @@ export default function SiteFooter({ links }: { links: NavLink[] }) {
           <div className="footer-col">
             <h2 className="footer-heading">Ordering</h2>
             <p className="muted">
-              We take orders by direct message on Instagram and arrange delivery or pickup with you.
+              Order online and we&rsquo;ll confirm your total, then arrange delivery or pickup with you.
             </p>
             <Link href="/contact" className="footer-text-link">
               How to order

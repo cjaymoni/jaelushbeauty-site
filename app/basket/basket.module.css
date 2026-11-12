@@ -1,0 +1,12 @@
+.header {
+  background: var(--shea-deep);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0 40px;
+}
+.header h1 {
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  margin-top: 12px;
+}
+.body {
+  padding-top: 48px;
+}

@@ -4,7 +4,8 @@ import Link from "next/link";
 import Chevron from "@/components/Chevron";
 import Reveal from "@/components/Reveal";
 import { line } from "@/lib/reveal";
-import { INSTAGRAM_URL } from "@/lib/products";
+import { SHOP_PATH } from "@/lib/catalog";
+import { INSTAGRAM_URL } from "@/lib/site";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -15,16 +16,16 @@ export const metadata: Metadata = pageMetadata({
 
 const steps = [
   {
-    title: "Pick your products",
-    text: "Browse the shop and choose the soaps and body butters your skin is asking for.",
+    title: "Fill your basket",
+    text: "Browse the shop and add the soaps and body butters your skin is asking for.",
   },
   {
-    title: "Send us a DM",
-    text: "Message @jaelushbeauty on Instagram with the products and quantities you would like.",
+    title: "Send your order",
+    text: "Add your name, phone and email, choose delivery or pickup, and send. No payment is taken online.",
   },
   {
-    title: "We confirm your order",
-    text: "We reply with your total and arrange payment and delivery or pickup with you.",
+    title: "We confirm it",
+    text: "We email or call you with your total, then arrange payment and delivery or pickup.",
   },
 ];
 
@@ -46,12 +47,15 @@ export default function ContactPage() {
             Let&rsquo;s get you <em>glowing.</em>
           </h1>
           <p className={`${styles.lead} ${line(3)}`}>
-            We take orders through Instagram for now. Send us a message and we&rsquo;ll help you
-            find the right bar.
+            Order straight from the site in about a minute. Prefer to chat first? Message us on
+            Instagram and we&rsquo;ll help you find the right bar.
           </p>
-          <div className={line(4)}>
-            <a className="btn" href={INSTAGRAM_URL}>
-              Order on Instagram
+          <div className={`${styles.heroActions} ${line(4)}`}>
+            <Link className="btn" href={SHOP_PATH}>
+              Start shopping
+            </Link>
+            <a className="btn btn-ghost" href={INSTAGRAM_URL}>
+              Message on Instagram
             </a>
           </div>
         </Reveal>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AddToBasketButton } from "@/components/AddToBasket";
 import CategoryCards from "@/components/CategoryCards";
 import Chevron from "@/components/Chevron";
 import JsonLd from "@/components/JsonLd";
@@ -189,9 +190,11 @@ export default function Home() {
                   <Link href={productPath(goldenEssence)} className="btn btn-gold">
                     Shop Golden Essence
                   </Link>
-                  <a className="btn btn-ghost-light" href={INSTAGRAM_URL}>
-                    Order on Instagram
-                  </a>
+                  <AddToBasketButton
+                    slug={goldenEssence.slug}
+                    label={goldenEssence.name}
+                    className="btn-ghost-light"
+                  />
                 </div>
               </div>
             </div>

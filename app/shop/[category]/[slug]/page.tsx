@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToBasket from "@/components/AddToBasket";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ProductGallery from "@/components/ProductGallery";
@@ -16,7 +17,7 @@ import {
 } from "@/lib/catalog";
 import { products } from "@/lib/products";
 import { line } from "@/lib/reveal";
-import { INSTAGRAM_URL, SITE_NAME, absoluteUrl, pageMetadata } from "@/lib/site";
+import { SITE_NAME, absoluteUrl, pageMetadata } from "@/lib/site";
 import styles from "./product.module.css";
 
 /** Most related products to show under a product. */
@@ -101,12 +102,13 @@ export default async function ProductPage(props: PageProps<"/shop/[category]/[sl
             </ul>
             <p className={`${styles.description} ${line(4)}`}>{product.description}</p>
             <div className={`${styles.actions} ${line(5)}`}>
-              <a className="btn" href={INSTAGRAM_URL}>
-                Order on Instagram
-              </a>
-              <Link href="/contact" className={styles.howTo}>
-                How ordering works
-              </Link>
+              <AddToBasket slug={product.slug} label={product.name} />
+              <p className={styles.orderNote}>
+                No payment online. We confirm your total, then arrange delivery or pickup.{" "}
+                <Link href="/contact" className={styles.howTo}>
+                  How ordering works
+                </Link>
+              </p>
             </div>
           </div>
         </Reveal>

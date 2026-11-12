@@ -72,8 +72,8 @@ export default function ShopPage() {
           <div>
             <h2>How ordering works</h2>
             <p className="muted">
-              Pick your products, send us a message on Instagram, and we&rsquo;ll arrange payment
-              and delivery or pickup with you.
+              Add products to your basket and send your order. We&rsquo;ll confirm your total,
+              then arrange payment and delivery or pickup with you.
             </p>
           </div>
           <Link href="/contact" className="btn btn-ghost">

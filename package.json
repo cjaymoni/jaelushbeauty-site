@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test \"lib/**/*.test.ts\""
+    "test": "npm run test:lib && npm run test:components",
+    "test:lib": "node --test \"lib/**/*.test.ts\"",
+    "test:components": "vitest run"
   },
   "dependencies": {
     "next": "16.4.4",
@@ -14,9 +16,14 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "jsdom": "^31.0.0",
+    "typescript": "^5",
+    "vitest": "^5.1.0"
   }
 }
